@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Melo Prime | Economia Inteligente de Combustível</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      background: radial-gradient(circle at top, #020617, #000000);
+    }
+    .glass {
+      background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      backdrop-filter: blur(18px);
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease, box-shadow 0.6s ease;
+    }
+    .glass:hover {
+      transform: translateY(-12px) rotateX(6deg) rotateY(-6deg) scale(1.03);
+      box-shadow: 0 60px 140px rgba(0,0,0,0.95);
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .floating {
+      animation: float 5s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    .glow {
+      box-shadow: 0 0 40px rgba(34,197,94,0.6);
+    }
+    .premium-gradient {
+      background: linear-gradient(90deg, #22c55e, #38bdf8, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="text-white min-h-screen flex flex-col items-center px-6">
+
+  <!-- Navbar -->
+  <nav class="w-full max-w-7xl flex items-center justify-between py-6 fade-in">
+    <div class="flex items-center gap-3">
+      <i class="fas fa-gem text-green-400 text-2xl"></i>
+      <span class="text-2xl font-extrabold premium-gradient">MELO PRIME</span>
+    </div>
+    <div class="hidden md:flex gap-8 text-gray-300 font-medium">
+      <a href="#benefits" class="hover:text-green-400 transition">Benefícios</a>
+      <a href="#calculator" class="hover:text-green-400 transition">Calculadora</a>
+      <a href="#features" class="hover:text-green-400 transition">Recursos</a>
+      <a href="#contact" class="hover:text-green-400 transition">Contato</a>
+    </div>
+    <button class="bg-green-500 hover:bg-green-600 transition px-6 py-3 rounded-full font-bold text-black shadow-lg glow">
+      Começar Agora
+    </button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 fade-in">
+    <div>
+      <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+        Economize combustível com <span class="premium-gradient">inteligência de elite</span>
+      </h1>
+      <p class="text-gray-300 text-lg mb-8">
+        O Melo Prime é a plataforma premium que calcula, otimiza e transforma cada viagem em economia real — com tecnologia, design e performance dignos de marcas de luxo.
+      </p>
+      <div class="flex gap-4 flex-wrap">
+        <button class="bg-green-500 hover:bg-green-600 transition px-8 py-4 rounded-full font-bold text-black shadow-lg glow">
+          Calcular Economia
+        </button>
+        <button class="border border-gray-600 hover:border-green-400 transition px-8 py-4 rounded-full font-semibold text-white shadow-lg">
+          Ver Demonstração
+        </button>
+      </div>
+    </div>
+    <div class="glass p-10 floating">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold premium-gradient mb-4">Painel Inteligente</h2>
+        <p class="text-gray-300 mb-6">Visual premium com dados em tempo real.</p>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="bg-black/60 p-6 rounded-2xl border border-gray-800">
+            <p class="text-gray-400 text-sm">Economia Mensal</p>
+            <p class="text-2xl font-bold text-green-400">R$ 384,50</p>
+          </div>
+          <div class="bg-black/60 p-6 rounded-2xl border border-gray-800">
+            <p class="text-gray-400 text-sm">Viagens Otimizadas</p>
+            <p class="text-2xl font-bold text-blue-400">+27%</p>
+          </div>
+          <div class="bg-black/60 p-6 rounded-2xl border border-gray-800">
+            <p class="text-gray-400 text-sm">CO₂ Evitado</p>
+            <p class="text-2xl font-bold text-purple-400">-112 kg</p>
+          </div>
+          <div class="bg-black/60 p-6 rounded-2xl border border-gray-800">
+            <p class="text-gray-400 text-sm">Eficiência</p>
+            <p class="text-2xl font-bold text-yellow-400">98%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section id="benefits" class="w-full max-w-7xl py-20 fade-in">
+    <h2 class="text-4xl font-extrabold text-center mb-12 premium-gradient">Por que escolher o Melo Prime?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="glass p-8 text-center">
+        <i class="fas fa-bolt text-green-400 text-4xl mb-4"></i>
+        <h3 class="text-xl font-bold mb-3">Alta Performance</h3>
+        <p class="text-gray-300">Cálculos instantâneos com precisão de nível profissional.</p>
+      </div>
+      <div class="glass p-8 text-center">
+        <i class="fas fa-crown text-yellow-400 text-4xl mb-4"></i>
+        <h3 class="text-xl font-bold mb-3">Experiência Premium</h3>
+        <p class="text-gray-300">Design sofisticado, fluido e digno de marcas de luxo.</p>
+      </div>
+      <div class="glass p-8 text-center">
+        <i class="fas fa-shield-alt text-blue-400 text-4xl mb-4"></i>
+        <h3 class="text-xl font-bold mb-3">Segurança Total</h3>
+        <p class="text-gray-300">Seus dados protegidos com padrões de segurança modernos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator Section -->
+  <section id="calculator" class="w-full max-w-7xl py-20 fade-in">
+    <h2 class="text-4xl font-extrabold text-center mb-12 premium-gradient">Calculadora Premium</h2>
+
+    <div class="glass p-10 max-w-3xl mx-auto shadow-2xl">
+      <form id="fuelForm" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block mb-2 text-gray-300">Tipo de veículo</label>
+            <select id="vehicleType" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none">
+              <option value="car">🚗 Carro</option>
+              <option value="moto">🏍️ Moto</option>
+            </select>
+          </div>
+          <div>
+            <label class="block mb-2 text-gray-300">Consumo médio (km/l)</label>
+            <input type="number" id="consumption" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Ex: 12" required />
+          </div>
+        </div>
+
+        <div>
+          <label class="block mb-2 text-gray-300">Endereço de origem</label>
+          <input type="text" id="origin" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Ex: Avenida Paulista, São Paulo" required />
+        </div>
+
+        <div>
+          <label class="block mb-2 text-gray-300">Endereço de destino</label>
+          <input type="text" id="destination" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Ex: Copacabana, Rio de Janeiro" required />
+        </div>
+
+        <div>
+          <label class="block mb-2 text-gray-300">Preço do combustível (R$)</label>
+          <input type="number" id="price" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Ex: 6.50" step="0.01" required />
+        </div>
+
+        <button type="submit" class="w-full bg-green-500 hover:bg-green-600 transition p-5 rounded-full font-bold text-black text-lg shadow-lg glow">
+          Calcular Economia Premium
+        </button>
+      </form>
+
+      <div id="result" class="mt-8 hidden p-8 rounded-2xl bg-black/70 border border-green-500 shadow-2xl fade-in">
+        <h3 class="text-2xl font-bold text-green-400 mb-4">Resumo da Viagem</h3>
+        <p id="distanceResult" class="mb-2"></p>
+        <p id="fuelUsed" class="mb-2"></p>
+        <p id="totalCost" class="mb-2"></p>
+        <p id="savingTip" class="mt-4 text-green-300 font-medium"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="w-full max-w-7xl py-20 fade-in">
+    <h2 class="text-4xl font-extrabold text-center mb-12 premium-gradient">Recursos Avançados</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="glass p-8">
+        <h3 class="text-xl font-bold mb-3">📊 Relatórios Inteligentes</h3>
+        <p class="text-gray-300">Visualize economia mensal, anual e projeções futuras.</p>
+      </div>
+      <div class="glass p-8">
+        <h3 class="text-xl font-bold mb-3">🗺️ Planejamento de Rotas</h3>
+        <p class="text-gray-300">Sugestão de rotas mais econômicas automaticamente.</p>
+      </div>
+      <div class="glass p-8">
+        <h3 class="text-xl font-bold mb-3">🤖 IA de Economia</h3>
+        <p class="text-gray-300">Sistema inteligente que aprende seu estilo de condução.</p>
+      </div>
+      <div class="glass p-8">
+        <h3 class="text-xl font-bold mb-3">🔔 Alertas Premium</h3>
+        <p class="text-gray-300">Avisos sobre manutenção, consumo e preços de combustível.</p>
+      </div>
+      <div class="glass p-8">
+        <h3 class="text-xl font-bold mb-3">🌱 Modo Sustentável</h3>
+        <p class="text-gray-300">Cálculo automático de impacto ambiental e CO₂ evitado.</p>
+      </div>
+      <div class="glass p-8">
+        <h3 class="text-xl font-bold mb-3">👑 Perfil VIP</h3>
+        <p class="text-gray-300">Área exclusiva com histórico, metas e comparativos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="w-full max-w-7xl py-20 fade-in">
+    <h2 class="text-4xl font-extrabold text-center mb-12 premium-gradient">Entre em Contato</h2>
+    <div class="glass p-10 max-w-2xl mx-auto">
+      <form class="space-y-6">
+        <div>
+          <label class="block mb-2 text-gray-300">Nome</label>
+          <input type="text" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Seu nome" />
+        </div>
+        <div>
+          <label class="block mb-2 text-gray-300">E-mail</label>
+          <input type="email" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="seu@email.com" />
+        </div>
+        <div>
+          <label class="block mb-2 text-gray-300">Mensagem</label>
+          <textarea class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" rows="4" placeholder="Digite sua mensagem"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-green-500 hover:bg-green-600 transition p-5 rounded-full font-bold text-black text-lg shadow-lg glow">
+          Enviar Mensagem
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-full max-w-7xl text-center py-12 mt-10 text-gray-400 fade-in">
+    <p class="mb-2">© 2026 Melo Prime — Economia Inteligente de Combustível</p>
+    <p>Criado por <span class="text-green-400 font-semibold">Diego de Melo</span></p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('fuelForm');
+    const resultDiv = document.getElementById('result');
+    const fuelUsedP = document.getElementById('fuelUsed');
+    const totalCostP = document.getElementById('totalCost');
+    const savingTipP = document.getElementById('savingTip');
+    const distanceResultP = document.getElementById('distanceResult');
+
+    const tips = [
+      "Dirija em velocidade constante para reduzir o consumo.",
+      "Evite deixar o motor ligado parado por muito tempo.",
+      "Use marchas adequadas para cada velocidade.",
+      "Faça alinhamento e balanceamento regularmente.",
+      "Prefira horários com menos trânsito.",
+      "Use combustível de boa qualidade.",
+      "Evite sobrecarregar o veículo.",
+      "Verifique o filtro de ar com frequência.",
+      "Planeje rotas mais curtas e eficientes.",
+      "Use o ar-condicionado com moderação."
+    ];
+
+    function calcularDistanciaSimulada(origem, destino) {
+      return Math.floor(Math.random() * 115) + 5;
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const origin = document.getElementById('origin').value;
+      const destination = document.getElementById('destination').value;
+      const consumption = parseFloat(document.getElementById('consumption').value);
+      const price = parseFloat(document.getElementById('price').value);
+
+      if (!origin || !destination || consumption <= 0 || price <= 0) {
+        alert("Por favor, preencha todos os campos corretamente.");
+        return;
+      }
+
+      const distance = calcularDistanciaSimulada(origin, destination);
+      const fuelUsed = distance / consumption;
+      const totalCost = fuelUsed * price;
+
+      distanceResultP.textContent = `📍 Distância estimada: ${distance} km`;
+      fuelUsedP.textContent = `⛽ Combustível necessário: ${fuelUsed.toFixed(2)} litros`;
+      totalCostP.textContent = `💰 Custo total da viagem: R$ ${totalCost.toFixed(2)}`;
+
+      const randomTip = tips[Math.floor(Math.random() * tips.length)];
+      savingTipP.textContent = `💡 Dica premium: ${randomTip}`;
+
+      resultDiv.classList.remove('hidden');
+    });
+  </script>
+
+</body>
+</html>
