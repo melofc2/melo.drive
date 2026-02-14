@@ -3,30 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Melo Prime | Economia Inteligente de Combustível</title>
-  <script src="https://cdn.tailwindcss.com">
-
-    const ehiForm = document.getElementById('ehiForm');
-
-    ehiForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const selected = document.querySelector('input[name="arquivo"]:checked');
-      if (!selected) {
-        alert('Selecione um arquivo antes de confirmar.');
-        return;
-      }
-
-      const arquivo = selected.value;
-      const subject = encodeURIComponent('Pedido Arquivo EHI - ' + arquivo);
-      const body = encodeURIComponent('Olá, desejo comprar o arquivo: ' + arquivo + '
-Valor: R$ 15,00');
-
-      window.location.href = `mailto:diegodemelotavares@gmail.com?subject=${subject}&body=${body}`;
-    });
-
-  </script>
+  <title>Melo Prime | Economia + Internet Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <style>
     body {
       background: radial-gradient(circle at top, #020617, #000000);
@@ -35,31 +15,13 @@ Valor: R$ 15,00');
       background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
       backdrop-filter: blur(18px);
       border-radius: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-      transform-style: preserve-3d;
-      transition: transform 0.6s ease, box-shadow 0.6s ease;
+      transition: all 0.4s ease;
     }
     .glass:hover {
-      transform: translateY(-12px) rotateX(6deg) rotateY(-6deg) scale(1.03);
+      transform: translateY(-8px) scale(1.02);
       box-shadow: 0 60px 140px rgba(0,0,0,0.95);
-    }
-    .fade-in {
-      animation: fadeIn 1s ease-in-out forwards;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .floating {
-      animation: float 5s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-14px); }
-    }
-    .glow {
-      box-shadow: 0 0 40px rgba(34,197,94,0.6);
     }
     .premium-gradient {
       background: linear-gradient(90deg, #22c55e, #38bdf8, #a855f7);
@@ -68,164 +30,152 @@ Valor: R$ 15,00');
     }
   </style>
 </head>
+
 <body class="text-white min-h-screen flex flex-col items-center px-6">
 
-  <nav class="w-full max-w-7xl flex items-center justify-between py-6 fade-in">
+  <!-- NAVBAR -->
+  <nav class="w-full max-w-7xl flex items-center justify-between py-8">
     <div class="flex items-center gap-3">
       <i class="fas fa-gem text-green-400 text-2xl"></i>
       <span class="text-2xl font-extrabold premium-gradient">MELO PRIME</span>
     </div>
-    <button class="bg-green-500 hover:bg-green-600 transition px-6 py-3 rounded-full font-bold text-black shadow-lg glow">
-      Começar Agora
-    </button>
   </nav>
 
-  <section class="w-full max-w-4xl py-20 fade-in">
-    <div class="glass p-10 shadow-2xl">
-      <h2 class="text-3xl font-bold premium-gradient mb-6 text-center">Calculadora Premium</h2>
+  <!-- ===== PARTE 1 - ECONOMIA DE COMBUSTÍVEL (LÓGICA ORIGINAL MANTIDA) ===== -->
+  <section class="w-full max-w-4xl py-10">
+    <div class="glass p-10">
+      <h2 class="text-3xl font-bold premium-gradient mb-6 text-center">Calculadora Premium de Economia</h2>
 
-      <form id="fuelForm" class="space-y-6">
+      <form id="driveForm" class="space-y-6">
+
         <div>
-          <label class="block mb-2 text-gray-300">Consumo médio (km/l)</label>
-          <input type="number" id="consumption" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Ex: 12" required />
+          <label class="block mb-2 text-gray-300">Distância Percorrida (km)</label>
+          <input type="number" id="distancia" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Ex: 120" required />
         </div>
 
         <div>
-          <label class="block mb-2 text-gray-300">Preço do combustível (R$)</label>
-          <input type="number" id="price" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Ex: 6.50" step="0.01" required />
+          <label class="block mb-2 text-gray-300">Litros Consumidos</label>
+          <input type="number" id="litros" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Ex: 10" required />
         </div>
 
         <div>
-          <label class="block mb-2 text-gray-300">Distância (km)</label>
-          <input type="number" id="distance" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Ex: 50" required />
+          <label class="block mb-2 text-gray-300">Preço do Combustível (R$)</label>
+          <input type="number" id="preco" step="0.01" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Ex: 5.79" required />
         </div>
 
-        <button type="submit" class="w-full bg-green-500 hover:bg-green-600 transition p-5 rounded-full font-bold text-black text-lg shadow-lg glow">
+        <button type="submit" class="w-full bg-green-500 hover:bg-green-600 transition p-5 rounded-full font-bold text-black text-lg shadow-lg">
           Calcular Economia
         </button>
-      </form>
 
-      <div id="result" class="mt-8 hidden p-8 rounded-2xl bg-black/70 border border-green-500 shadow-2xl fade-in">
-        <h3 class="text-2xl font-bold text-green-400 mb-4">Resultado</h3>
-        <p id="fuelUsed" class="mb-2"></p>
-        <p id="totalCost" class="mb-2"></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Seção Arquivos Premium EHI -->
-  <section class="w-full max-w-6xl py-24 fade-in">
-    <div class="glass p-12 shadow-2xl">
-      <h2 class="text-4xl font-extrabold premium-gradient mb-6 text-center">Arquivos Premium de Internet (.EHI)</h2>
-      <p class="text-center text-gray-300 mb-12 text-lg">Selecione o arquivo desejado. Todos os arquivos possuem valor fixo de <span class="text-green-400 font-bold">R$ 15,00</span>.</p>
-
-      <form id="ehiForm" class="space-y-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          
-          <!-- Lista de Arquivos -->
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="Claro Waze #1.ehi" class="accent-green-500" required>
-            Claro Waze #1.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="Vivo Controle #1.ehi" class="accent-green-500">
-            Vivo Controle #1.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="TIM Front 02.ehi" class="accent-green-500">
-            TIM Front 02.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="Claro WhatsApp #1.ehi" class="accent-green-500">
-            Claro WhatsApp #1.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="Vivo Controle #3.ehi" class="accent-green-500">
-            Vivo Controle #3.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="TIM Flare #01.ehi" class="accent-green-500">
-            TIM Flare #01.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="Easy Prime #1.ehi" class="accent-green-500">
-            Easy Prime #1.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="Claro X #1.ehi" class="accent-green-500">
-            Claro X #1.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="Vivo Pre #2.ehi" class="accent-green-500">
-            Vivo Pre #2.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="TIM Front 01.ehi" class="accent-green-500">
-            TIM Front 01.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="Vivo Pre #1.ehi" class="accent-green-500">
-            Vivo Pre #1.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="Vivo Pre #3.ehi" class="accent-green-500">
-            Vivo Pre #3.ehi
-          </label>
-
-          <label class="flex items-center gap-3 bg-black/60 p-4 rounded-xl border border-gray-800 cursor-pointer hover:border-green-400 transition">
-            <input type="radio" name="arquivo" value="Vivo Controle #2.ehi" class="accent-green-500">
-            Vivo Controle #2.ehi
-          </label>
-
-        </div>
-
-        <div class="text-center">
-          <button type="submit" class="bg-gradient-to-r from-green-500 to-blue-500 px-10 py-4 rounded-full font-bold text-black text-lg shadow-lg hover:scale-105 transition">
-            Confirmar Pedido (R$ 15,00)
-          </button>
-        </div>
+        <div id="resultado" class="hidden mt-6 p-6 rounded-xl bg-black/70 border border-green-500"></div>
       </form>
     </div>
   </section>
 
-  <script>
-    const form = document.getElementById('fuelForm');
-    const resultDiv = document.getElementById('result');
-    const fuelUsedP = document.getElementById('fuelUsed');
-    const totalCostP = document.getElementById('totalCost');
+  <!-- ===== PARTE 2 - INTERNET PREMIUM EHI ===== -->
+  <section class="w-full max-w-4xl py-16">
+    <div class="glass p-10">
+      <h2 class="text-3xl font-bold premium-gradient mb-6 text-center">Arquivos Premium EHI</h2>
+      <p class="text-center text-gray-300 mb-8">Selecione seu arquivo • Valor único <span class="text-green-400 font-bold">R$ 15,00</span></p>
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+      <form id="ehiForm" class="space-y-6">
 
-      const consumption = parseFloat(document.getElementById('consumption').value);
-      const price = parseFloat(document.getElementById('price').value);
-      const distance = parseFloat(document.getElementById('distance').value);
+        <div>
+          <label class="block mb-2 text-gray-300">Escolha o Arquivo</label>
+          <select id="arquivo" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" required>
+            <option value="">Selecione</option>
+            <option>Claro Waze #1.ehi</option>
+            <option>Vivo Controle #1.ehi</option>
+            <option>Tim Front 02.ehi</option>
+            <option>Claro WhatsApp #1.ehi</option>
+            <option>Vivo Controle #3.ehi</option>
+            <option>Tim Flare #01.ehi</option>
+            <option>Easy Prime #1.ehi</option>
+            <option>Claro X #1.ehi</option>
+            <option>VivoPre #2.ehi</option>
+            <option>Tim Front 01.ehi</option>
+            <option>VivoPre #1.ehi</option>
+            <option>VivoPre #3.ehi</option>
+            <option>Vivo Controle #2.ehi</option>
+          </select>
+        </div>
 
-      if (isNaN(consumption) || isNaN(price) || isNaN(distance) || consumption <= 0 || price <= 0 || distance <= 0) {
-        alert("Preencha os campos corretamente.");
-        return;
-      }
+        <div>
+          <label class="block mb-2 text-gray-300">Seu Nome</label>
+          <input type="text" id="nome" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Digite seu nome" required />
+        </div>
 
-      const fuelUsed = distance / consumption;
-      const totalCost = fuelUsed * price;
+        <div>
+          <label class="block mb-2 text-gray-300">Seu Gmail</label>
+          <input type="email" id="email" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700 focus:border-green-400 outline-none" placeholder="Digite seu Gmail" required />
+        </div>
 
-      fuelUsedP.textContent = `⛽ Combustível necessário: ${fuelUsed.toFixed(2)} litros`;
-      totalCostP.textContent = `💰 Custo total: R$ ${totalCost.toFixed(2)}`;
+        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-blue-500 p-5 rounded-full font-bold text-black text-lg hover:scale-105 transition">
+          Comprar Arquivo (R$ 15,00)
+        </button>
+      </form>
+    </div>
+  </section>
 
-      resultDiv.classList.remove('hidden');
-    });
-  </script>
+<script>
+  // ===== ECONOMIA (LÓGICA ORIGINAL MANTIDA) =====
+  document.getElementById('driveForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var distancia = parseFloat(document.getElementById('distancia').value);
+    var litros = parseFloat(document.getElementById('litros').value);
+    var preco = parseFloat(document.getElementById('preco').value);
+
+    if (!distancia || !litros || !preco || litros <= 0) {
+      alert('Preencha todos os campos corretamente.');
+      return;
+    }
+
+    var consumoMedio = distancia / litros;
+    var custoTotal = litros * preco;
+    var custoPorKm = custoTotal / distancia;
+
+    var mensagem =
+      'Consumo médio: ' + consumoMedio.toFixed(2) + ' km/L | ' +
+      'Custo total: R$ ' + custoTotal.toFixed(2) + ' | ' +
+      'Custo por km: R$ ' + custoPorKm.toFixed(2);
+
+    var resultadoDiv = document.getElementById('resultado');
+    resultadoDiv.classList.remove('hidden');
+    resultadoDiv.innerHTML = mensagem;
+  });
+
+  // ===== ENVIO EHI PARA SEU GMAIL =====
+  document.getElementById('ehiForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var arquivo = document.getElementById('arquivo').value;
+    var nome = document.getElementById('nome').value;
+    var email = document.getElementById('email').value;
+
+    if (!arquivo || !nome || !email) {
+      alert('Preencha todos os campos para continuar.');
+      return;
+    }
+
+    var assunto = encodeURIComponent('Novo Pedido - Melo Prime');
+
+    var corpo = encodeURIComponent(
+      'Novo Pedido - Melo Prime
+
+' +
+      'Nome: ' + nome + '
+' +
+      'Email: ' + email + '
+' +
+      'Arquivo escolhido: ' + arquivo + '
+' +
+      'Valor: R$ 15'
+    );
+
+    window.location.href = 'mailto:diegodemelotavares@gmail.com?subject=' + assunto + '&body=' + corpo;
+  });
+</script>
 
 </body>
 </html>
