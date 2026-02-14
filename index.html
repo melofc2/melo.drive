@@ -161,11 +161,7 @@
     var subject = encodeURIComponent('Novo Pedido - Melo Prime');
 
     var body = encodeURIComponent(
-      'Novo Pedido - Melo Prime\n\n' +
-      'Nome: ' + nome + '\n' +
-      'Email: ' + email + '\n' +
-      'Arquivo escolhido: ' + arquivo + '\n' +
-      'Valor: R$ 15'
+      `Novo Pedido - Melo Prime\n\nNome: ${nome}\nEmail: ${email}\nArquivo escolhido: ${arquivo}\nValor: R$ 15`
     );
 
     window.location.href = 'mailto:diegodemelotavares@gmail.com?subject=' + subject + '&body=' + body;
