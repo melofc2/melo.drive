@@ -145,7 +145,7 @@
     resultadoDiv.innerHTML = mensagem;
   });
 
-  // ===== ENVIO EHI PARA SEU GMAIL =====
+    // ===== ENVIO EHI PARA SEU GMAIL =====
   document.getElementById('ehiForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -158,19 +158,17 @@
       return;
     }
 
-    var assunto = encodeURIComponent('Novo Pedido - Melo Prime
+    var subject = encodeURIComponent('Novo Pedido - Melo Prime');
 
-' +
-      'Nome: ' + nome + '
-' +
-      'Email: ' + email + '
-' +
-      'Arquivo escolhido: ' + arquivo + '
-' +
+    var body = encodeURIComponent(
+      'Novo Pedido - Melo Prime\n\n' +
+      'Nome: ' + nome + '\n' +
+      'Email: ' + email + '\n' +
+      'Arquivo escolhido: ' + arquivo + '\n' +
       'Valor: R$ 15'
     );
 
-    window.location.href = 'mailto:diegodemelotavares@gmail.com?subject=' + assunto + '&body=' + corpo;
+    window.location.href = 'mailto:diegodemelotavares@gmail.com?subject=' + subject + '&body=' + body;
   });
 </script>
 
