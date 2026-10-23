@@ -3,16 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Melo Prime | Economia + Internet Premium</title>
+  <title>melo.drive | Melo Internet SSH</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
+    :root { --melo-blue: #0b1d3a; --melo-green: #22c55e; --melo-gold: #fbbf24; }
     body {
-      background: radial-gradient(circle at top, #020617, #000000);
+      background: #06142b;
+      isolation: isolate;
+    }
+    #siteBackdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: linear-gradient(rgba(2,8,24,.48), rgba(2,8,24,.62)); }
+    #siteBackdrop::before, #siteBackdrop::after { content: ""; position: absolute; top: 8vh; height: 30vh; width: min(38vw, 180px); background-image: url("melo-logo-banner.jpeg"); background-repeat: no-repeat; background-size: auto 30vh; opacity: .2; filter: blur(.5px); }
+    #siteBackdrop::before { left: 0; background-position: left center; -webkit-mask-image: linear-gradient(to right, #000 58%, transparent 100%); mask-image: linear-gradient(to right, #000 58%, transparent 100%); }
+    #siteBackdrop::after { right: 0; background-position: right center; -webkit-mask-image: linear-gradient(to left, #000 58%, transparent 100%); mask-image: linear-gradient(to left, #000 58%, transparent 100%); }
+    @media (max-width: 640px) {
+      #siteBackdrop::before, #siteBackdrop::after { top: 10vh; height: 22vh; width: min(34vw, 130px); background-size: auto 22vh; opacity: .13; }
     }
     .glass {
-      background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      background: linear-gradient(145deg, rgba(13,31,56,.96), rgba(8,22,43,.94));
       backdrop-filter: blur(18px);
       border-radius: 2rem;
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -24,57 +33,155 @@
       box-shadow: 0 60px 140px rgba(0,0,0,0.95);
     }
     .premium-gradient {
-      background: linear-gradient(90deg, #22c55e, #38bdf8, #a855f7);
+      background: linear-gradient(90deg, var(--melo-green), #60a5fa, var(--melo-gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+    .plan-card {
+      background: linear-gradient(145deg, rgba(21,39,64,.96), rgba(11,25,47,.95));
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 2rem;
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    }
+    .plan-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(251,191,36,.65);
+      box-shadow: 0 18px 44px rgba(251,191,36,.18);
+    }
+    .payment-choice { border: 1px solid rgba(255,255,255,.18); background: rgba(2,8,24,.55); transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; }
+    .payment-choice[aria-pressed="true"] { border-color: #60a5fa; background: rgba(37,99,235,.22); box-shadow: 0 0 22px rgba(96,165,250,.28); transform: translateY(-2px); }
+    .client-review { position: relative; overflow: hidden; border: 1px solid rgba(96,165,250,.38); border-radius: 1.5rem; background: linear-gradient(145deg, rgba(15,34,60,.96), rgba(8,20,39,.96)); padding: 1.25rem; color: #fff; box-shadow: 0 14px 36px rgba(0,0,0,.28), 0 0 24px rgba(96,165,250,.12); animation: nameAppear .4s ease both; }
+    .client-review-stars { color: #fbbf24; letter-spacing: .12em; text-shadow: 0 0 10px rgba(251,191,36,.28); }
+    @keyframes nameAppear { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .assistant-panel { position: fixed; right: 1rem; bottom: 6rem; z-index: 50; width: min(26rem, calc(100vw - 2rem)); }
+    .floating-actions { position: fixed; right: 1rem; bottom: 1rem; z-index: 55; display: flex; gap: .75rem; }
+    .floating-item { display: flex; flex-direction: column; align-items: center; gap: .35rem; }
+    .floating-label { max-width: 10rem; border: 1px solid rgba(255,255,255,.2); border-radius: 9999px; background: rgba(2,8,24,.88); padding: .3rem .6rem; color: #fff; font-size: .68rem; font-weight: 700; text-align: center; line-height: 1.2; box-shadow: 0 4px 12px rgba(0,0,0,.3); }
+    .floating-button { width: 3.75rem; height: 3.75rem; border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 26px rgba(0,0,0,.45); transition: transform .2s ease, filter .2s ease, box-shadow .2s ease; }
+    .floating-button:hover { transform: translateY(-4px) scale(1.06); filter: brightness(1.12); box-shadow: 0 0 24px rgba(96,165,250,.55); }
+    body > :not(#snowfall):not(#siteBackdrop):not(.assistant-panel):not(.floating-actions) { position: relative; z-index: 2; }
+    .snowfall { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+    .snowflake { position: absolute; top: -12vh; left: var(--left); color: rgba(219,234,254,.72); font-size: var(--size); opacity: var(--opacity); text-shadow: 0 0 10px rgba(147,197,253,.65); animation: snowfall var(--duration) linear var(--delay) infinite; }
+    @keyframes snowfall { to { transform: translate3d(var(--drift), 115vh, 0) rotate(360deg); } }
+    .tree-scene { perspective: 800px; }
+    .ssh-tree { transform-style: preserve-3d; animation: treeFloat 5s ease-in-out infinite; filter: drop-shadow(0 14px 30px rgba(34,197,94,.2)); }
+    .tree-light { transform-box: fill-box; transform-origin: center; animation: treeGlow 2s ease-in-out infinite alternate; }
+    @keyframes treeFloat { 0%,100% { transform: rotateY(-5deg) translateY(0); } 50% { transform: rotateY(5deg) translateY(-8px); } }
+    @keyframes treeGlow { from { opacity: .6; filter: drop-shadow(0 0 2px #fbbf24); } to { opacity: 1; filter: drop-shadow(0 0 8px #fbbf24); } }
+    a, button { transition: transform .22s ease, box-shadow .22s ease, filter .22s ease; }
+    a:hover, button:hover { filter: brightness(1.13); box-shadow: 0 0 22px rgba(251,191,36,.45); }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--melo-gold); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
   </style>
 </head>
 
 <body class="text-white min-h-screen flex flex-col items-center px-6">
+  <div id="snowfall" class="snowfall" aria-hidden="true"></div>
+  <div id="siteBackdrop" aria-hidden="true"></div>
+
+  <section class="w-full max-w-5xl pt-5" aria-label="Mensagem bíblica">
+    <div class="glass border border-amber-300/50 bg-slate-950/70 px-6 py-5 text-center shadow-[0_0_32px_rgba(251,191,36,.18)]">
+      <p class="text-xs sm:text-sm font-bold uppercase tracking-[.2em] text-amber-300">✦ Uma mensagem de fé e esperança ✦</p>
+      <blockquote class="mt-3 text-lg sm:text-2xl font-semibold italic text-white">“Tudo tem o seu tempo determinado, e há tempo para todo o propósito debaixo do céu.”</blockquote>
+      <p class="mt-2 text-sm font-bold text-blue-200">Eclesiastes 3:1</p>
+    </div>
+  </section>
 
   <nav class="w-full max-w-7xl flex items-center justify-between py-8">
     <div class="flex items-center gap-3">
       <i class="fas fa-gem text-green-400 text-2xl"></i>
-      <span class="text-2xl font-extrabold premium-gradient">MELO PRIME</span>
+      <span class="text-2xl font-extrabold premium-gradient">MELO PRIME 🚀</span>
     </div>
   </nav>
 
-  <!-- ECONOMIA -->
-  <section class="w-full max-w-4xl py-10">
-    <div class="glass p-10">
-      <h2 class="text-3xl font-bold premium-gradient mb-6 text-center">Calculadora Premium de Economia</h2>
+  <section class="w-full max-w-5xl mb-6" aria-label="Banner Melo Internet SSH">
+    <div class="grid items-center gap-5 lg:grid-cols-[1fr_minmax(260px,420px)_1fr]">
+      <div id="reviewLeft" aria-live="off"></div>
+      <figure class="glass flex justify-center overflow-hidden p-3 sm:p-5">
+        <img src="melo-logo-banner.jpeg" alt="Banner Melo Internet: logotipo M com globo, planos disponíveis e contato WhatsApp 21959524869" class="h-auto w-full max-w-[420px] rounded-2xl object-contain shadow-2xl" />
+      </figure>
+      <div id="reviewRight" aria-live="off"></div>
+    </div>
+  </section>
 
-      <form id="driveForm" class="space-y-6">
-        <input type="number" id="distancia" placeholder="Distância (km)" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700" required />
-        <input type="number" id="litros" placeholder="Litros" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700" required />
-        <input type="number" id="preco" step="0.01" placeholder="Preço R$" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700" required />
-        <button class="w-full bg-green-500 p-4 rounded-xl font-bold text-black">Calcular</button>
-        <div id="resultado" class="hidden mt-4"></div>
-      </form>
+  <section id="planos" class="w-full max-w-6xl py-8">
+    <div class="text-center mb-8">
+      <p class="text-amber-300 text-sm font-bold tracking-widest uppercase mb-2">🎄 Ofertas de Natal · escolha seu plano de conexão 🎄</p>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-blue-400">🎁 Planos premium 🌐</h1>
+      <p class="text-gray-300 mt-2">Acessos válidos por 30 dias. Escolha a opção ideal para você.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <article class="plan-card p-6 text-center">
+        <div class="text-4xl mb-3">👤</div><p class="text-gray-300">1 acesso</p>
+        <p class="text-3xl font-black mt-3">R$ 9,00</p><p class="text-blue-200 font-semibold mt-2">30 dias ilimitados</p>
+        <p class="text-xs text-gray-400 mt-2">Melo Internet SSH — 1 acesso, 30 dias</p>
+        <button type="button" data-plan="1" class="mt-5 rounded-full bg-blue-500 px-5 py-3 font-bold text-black">Escolher plano</button>
+      </article>
+      <article class="plan-card p-6 text-center">
+        <div class="text-4xl mb-3">👥</div><p class="text-gray-300">2 acessos</p>
+        <p class="text-3xl font-black mt-3">R$ 16,00</p><p class="text-blue-200 font-semibold mt-2">30 dias</p>
+        <p class="text-xs text-gray-400 mt-2">Melo Internet SSH — 2 acessos, 30 dias</p>
+        <button type="button" data-plan="2" class="mt-5 rounded-full bg-blue-500 px-5 py-3 font-bold text-black">Escolher plano</button>
+      </article>
+      <article class="plan-card p-6 text-center">
+        <div class="text-4xl mb-3">👥👤</div><p class="text-gray-300">3 acessos</p>
+        <p class="text-3xl font-black mt-3">R$ 22,00</p><p class="text-blue-200 font-semibold mt-2">30 dias</p>
+        <p class="text-xs text-gray-400 mt-2">Melo Internet SSH — 3 acessos, 30 dias</p>
+        <button type="button" data-plan="3" class="mt-5 rounded-full bg-blue-500 px-5 py-3 font-bold text-black">Escolher plano</button>
+      </article>
+      <article class="plan-card p-6 text-center">
+        <div class="text-4xl mb-3">👥👥</div><p class="text-gray-300">4 acessos</p>
+        <p class="text-3xl font-black mt-3">R$ 28,00</p><p class="text-blue-200 font-semibold mt-2">30 dias</p>
+        <p class="text-xs text-gray-400 mt-2">Melo Internet SSH — 4 acessos, 30 dias</p>
+        <button type="button" data-plan="4" class="mt-5 rounded-full bg-blue-500 px-5 py-3 font-bold text-black">Escolher plano</button>
+      </article>
+    </div>
+  </section>
+
+  <section class="w-full max-w-4xl pb-8">
+    <div class="glass p-8 text-center">
+      <h2 class="text-2xl font-bold premium-gradient">🚀✨ MELO INTERNET ILIMITADA SSH 🌐🔥</h2>
+      <p class="text-gray-200 mt-3">💎 Bem-vindo ao acesso premium! Escolha um plano de acordo com a sua necessidade e aproveite 30 dias de acesso.</p>
+      <div class="grid sm:grid-cols-2 gap-4 mt-6 text-left">
+        <div class="rounded-2xl border border-white/10 bg-black/20 p-5">
+          <h3 class="font-bold text-green-300">🆓 Acesso gratuito</h3>
+          <p class="text-sm text-gray-300 mt-2">Todos os dias, das 10h às 18h, o arquivo fica disponível gratuitamente. Fora desse horário, consulte os planos premium.</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-black/20 p-5">
+          <h3 class="font-bold text-blue-300">👑 Planos premium</h3>
+          <p class="text-sm text-gray-300 mt-2">Opções para diferentes necessidades, com 1 a 4 acessos. O checkout do Mercado Pago apresenta os meios de pagamento habilitados.</p>
+        </div>
+      </div>
+      <a href="https://chat.whatsapp.com/IEkQA026tsC03xhnwcGSRz?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-6 rounded-full bg-green-500 px-6 py-3 font-bold text-black"><i class="fa-brands fa-whatsapp"></i> Entrar no grupo de WhatsApp</a>
+      <p class="text-sm text-gray-400 mt-4">📲 Dúvidas e informações pelo grupo ou pelo atendimento individual. 💙 Conecte-se mais. Aproveite mais!</p>
+      <div class="flex justify-center mt-8">
+        <figure class="tree-scene mx-auto w-52 sm:w-60" aria-label="Árvore de Natal formada por conexões SSH">
+          <svg class="ssh-tree w-full h-auto" viewBox="0 0 260 300" role="img" aria-labelledby="treeTitle treeDesc">
+            <title id="treeTitle">Árvore de Natal de conexões SSH</title>
+            <desc id="treeDesc">Árvore verde com fios luminosos e nós de conexão dourados e azuis.</desc>
+            <path d="M130 24 119 42 126 42 92 91 111 91 73 142 101 142 48 207 212 207 159 142 187 142 149 91 168 91 134 42 141 42Z" fill="#166534" stroke="#4ade80" stroke-width="2" />
+            <path d="M130 54 130 185M101 104 130 121 158 104M82 153 130 174 178 153M101 193 130 174 157 193" fill="none" stroke="#93c5fd" stroke-width="3" stroke-linecap="round" opacity=".9" />
+            <path d="M103 111Q130 130 157 111M86 159Q130 184 174 159M66 198Q130 218 194 198" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" />
+            <path d="M117 207H143V248H117Z" fill="#854d0e" stroke="#fbbf24" stroke-width="2" />
+            <path d="m130 8 5 10 11 1-8 7 3 11-11-6-10 6 2-11-8-7 11-1Z" fill="#fbbf24" class="tree-light" />
+            <g fill="#60a5fa" stroke="#dbeafe" stroke-width="1.5">
+              <circle class="tree-light" cx="111" cy="96" r="5" /><circle class="tree-light" cx="151" cy="132" r="5" /><circle class="tree-light" cx="91" cy="158" r="5" />
+              <circle class="tree-light" cx="167" cy="172" r="5" /><circle class="tree-light" cx="124" cy="190" r="5" /><circle class="tree-light" cx="145" cy="81" r="5" />
+            </g>
+            <g fill="#fbbf24"><circle class="tree-light" cx="130" cy="121" r="4" /><circle class="tree-light" cx="130" cy="174" r="4" /><circle class="tree-light" cx="107" cy="177" r="4" /><circle class="tree-light" cx="154" cy="156" r="4" /></g>
+          </svg>
+          <figcaption class="text-center text-xs text-blue-200 mt-2">Árvore de conexões SSH</figcaption>
+        </figure>
+      </div>
+      <p class="text-xs text-gray-400 mt-4">3 · 7 · 12 — detalhes simbólicos de fé, esperança e união. Que esta temporada seja vivida com gratidão, amor e boas conexões.</p>
     </div>
   </section>
 
   <!-- VENDA MANUAL COM CONFIRMAÇÃO -->
-  <section class="w-full max-w-4xl py-16">
+  <section id="contratar" class="w-full max-w-4xl py-16">
     <div class="glass p-10">
-      <h2 class="text-3xl font-bold premium-gradient mb-6 text-center">Arquivos Premium EHI</h2>
-      <p class="text-center text-gray-300 mb-4">Valor fixo <span class="text-green-400 font-bold">R$ 15,00</span></p>
-
-      <div class="flex justify-center items-center gap-6 mb-8 text-3xl text-white/80">
-        <div class="flex flex-col items-center">
-          <i class="fa-brands fa-pix text-green-400"></i>
-          <span class="text-xs mt-1">PIX</span>
-        </div>
-        <div class="flex flex-col items-center">
-          <i class="fa-regular fa-credit-card text-blue-400"></i>
-          <span class="text-xs mt-1">Cartão de Crédito</span>
-        </div>
-        <div class="flex flex-col items-center">
-          <i class="fa-solid fa-money-check-dollar text-purple-400"></i>
-          <span class="text-xs mt-1">Cartão de Débito</span>
-        </div>
-      </div>
+      <h2 class="text-3xl font-bold premium-gradient mb-6 text-center">Internet Ilimitada SSH</h2>
+      <p class="text-center text-gray-300 mb-4">Escolha seu plano e confira o valor antes de pagar.</p>
 
       <form id="ehiForm" class="space-y-6">
         <select id="arquivo" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700" required>
@@ -84,91 +191,254 @@
           <option>Tim Front 02.ehi</option>
         </select>
 
+        <select id="plano" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700" required aria-label="Selecione o plano">
+          <option value="1">Melo Internet SSH — 1 acesso, 30 dias — R$ 9,00</option>
+          <option value="2">Melo Internet SSH — 2 acessos, 30 dias — R$ 16,00</option>
+          <option value="3">Melo Internet SSH — 3 acessos, 30 dias — R$ 22,00</option>
+          <option value="4">Melo Internet SSH — 4 acessos, 30 dias — R$ 28,00</option>
+        </select>
+
+        <p class="text-center text-gray-300">Valor selecionado: <span id="valorSelecionado" class="text-green-400 font-bold">R$ 9,00</span></p>
+
         <input type="text" id="nome" placeholder="Seu Nome" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700" required />
         <input type="email" id="email" placeholder="Seu Email" class="w-full p-4 rounded-xl bg-black/70 border border-gray-700" required />
 
-        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-blue-500 p-5 rounded-full font-bold text-black">
-          Pagar R$15,00
+        <fieldset>
+          <legend class="mb-3 text-center font-bold text-white">1. Escolha a forma de pagamento</legend>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button type="button" class="payment-choice rounded-2xl p-4 text-center" data-payment="pix" aria-pressed="false">
+              <i class="fa-brands fa-pix text-3xl text-green-400" aria-hidden="true"></i>
+              <span class="mt-2 block font-bold">Pix</span>
+              <span class="text-xs text-gray-400">Mercado Pago</span>
+            </button>
+            <button type="button" class="payment-choice rounded-2xl p-4 text-center" data-payment="debit" aria-pressed="false">
+              <i class="fa-solid fa-money-check-dollar text-3xl text-amber-300" aria-hidden="true"></i>
+              <span class="mt-2 block font-bold">Cartão de débito</span>
+              <span class="text-xs text-gray-400">Mercado Pago</span>
+            </button>
+            <button type="button" class="payment-choice rounded-2xl p-4 text-center" data-payment="credit" aria-pressed="false">
+              <i class="fa-regular fa-credit-card text-3xl text-blue-400" aria-hidden="true"></i>
+              <span class="mt-2 block font-bold">Cartão de crédito</span>
+              <span class="text-xs text-gray-400">Mercado Pago</span>
+            </button>
+          </div>
+          <p id="paymentNotice" class="mt-3 text-center text-xs text-gray-400">2. Depois de escolher, clique em pagar. O link do Mercado Pago abrirá para o plano e valor selecionados; a forma final é confirmada no checkout.</p>
+        </fieldset>
+
+        <button id="botaoPagar" type="submit" class="w-full bg-gradient-to-r from-green-500 to-blue-500 p-5 rounded-full font-bold text-black">
+          2. Pagar R$ 9,00 no Mercado Pago
         </button>
 
         <div class="mt-6 p-4 rounded-xl bg-yellow-500/10 border border-yellow-400 text-yellow-300 text-sm">
-          ⚠ Após realizar o pagamento, você será direcionado para enviar o comprovante automaticamente.
+          ⚠ Após realizar o pagamento, envie o comprovante pelo WhatsApp ou pelo e-mail abaixo para conferência.
           <br>
-          ⚠ O envio do arquivo será feito manualmente após confirmação do pagamento.
+          ⚠ O arquivo será enviado manualmente após a confirmação do pagamento. O checkout por link não envia o comprovante automaticamente.
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <a id="enviarComprovanteWhatsapp" href="https://wa.me/5521959524869" target="_blank" rel="noopener noreferrer" class="w-full inline-flex justify-center items-center gap-2 rounded-xl bg-green-600 p-4 font-bold text-black"><i class="fa-brands fa-whatsapp"></i> Enviar comprovante pelo WhatsApp</a>
+          <a id="enviarComprovanteEmail" href="mailto:diegodemelotavares@gmail.com" class="w-full inline-flex justify-center items-center gap-2 rounded-xl bg-white/10 p-4 font-bold text-white"><i class="fa-regular fa-envelope"></i> Enviar comprovante por e-mail</a>
         </div>
       </form>
     </div>
   </section>
 
-<script>
+  <section id="assistente" class="assistant-panel hidden" aria-label="Suporte virtual">
+    <div class="glass p-7 sm:p-9">
+      <div class="flex items-center justify-between gap-4">
+        <div><h2 class="text-2xl font-bold premium-gradient">🤖 Suporte virtual Melo</h2><p class="text-sm text-gray-400 mt-1">Respostas baseadas nas informações desta página.</p></div>
+        <button type="button" id="fecharAssistente" class="rounded-full bg-white/10 px-3 py-2 text-xl" aria-label="Fechar suporte">×</button>
+      </div>
+      <div id="respostasAssistente" class="mt-5 max-h-72 overflow-y-auto rounded-xl bg-black/40 p-4 text-sm" aria-live="polite"><p class="text-blue-200">Olá! Posso ajudar com planos, horário gratuito, pagamentos ou grupo. O que você gostaria de saber?</p></div>
+      <form id="formAssistente" class="mt-4 flex gap-2">
+        <input id="perguntaAssistente" type="text" class="min-w-0 flex-1 rounded-xl bg-black/60 border border-gray-700 p-3" placeholder="Escreva sua pergunta" required />
+        <button type="submit" class="rounded-xl bg-blue-600 px-5 font-bold"><i class="fa-solid fa-paper-plane"></i></button>
+      </form>
+      <p class="text-xs text-gray-500 mt-3">Este assistente usa uma base local de perguntas frequentes. Para algo que não esteja informado, fale com o suporte pelo WhatsApp.</p>
+    </div>
+  </section>
 
-// ECONOMIA
- document.getElementById('driveForm').addEventListener('submit', function(e){
-   e.preventDefault();
-   const d = parseFloat(distancia.value);
-   const l = parseFloat(litros.value);
-   const p = parseFloat(preco.value);
-   if(!d || !l || !p || l <= 0) return alert("Preencha corretamente");
-   const consumo = d/l;
-   const total = l*p;
-   resultado.classList.remove("hidden");
-   resultado.innerHTML = `Consumo: ${consumo.toFixed(2)} km/L | Total: R$ ${total.toFixed(2)}`;
+  <div class="floating-actions" aria-label="Atendimento">
+    <div class="floating-item"><span class="floating-label">IA DE SUPORTE</span><button type="button" id="abrirAssistente" class="floating-button bg-blue-600 text-white text-2xl" aria-label="Abrir suporte virtual" title="IA de suporte"><i class="fa-solid fa-robot"></i></button></div>
+    <div class="floating-item"><span class="floating-label">Contato de suporte 24h</span><a id="botaoWhatsappTopo" href="https://wa.me/5521959524869?text=Ol%C3%A1%2C%20gostaria%20de%20receber%20informa%C3%A7%C3%B5es%20e%20um%20or%C3%A7amento%20dos%20planos%20Melo%20Internet%20SSH.%20Poderia%20me%20orientar%2C%20por%20gentileza%3F" target="_blank" rel="noopener noreferrer" class="floating-button bg-green-500 text-black text-3xl" aria-label="Pedir orçamento pelo WhatsApp" title="Pedir orçamento pelo WhatsApp"><i class="fa-brands fa-whatsapp"></i></a></div>
+  </div>
+
+<script>
+ const comentariosClientes = [
+   { nome: 'João', estrelas: 5, comentario: 'Excelente atendimento! Tudo funcionou perfeitamente, recomendo muito o Melo Prime!' },
+   { nome: 'Rodrigo', estrelas: 5, comentario: 'Serviço de qualidade, rápido e confiável. Gostei bastante da experiência!' },
+   { nome: 'Vitória', estrelas: 5, comentario: 'Muito bom! Fácil de usar, atendimento atencioso e tudo funcionando direitinho.' },
+   { nome: 'Isabelly', estrelas: 5, comentario: 'Adorei o serviço! Ótimo custo-benefício e uma experiência muito positiva.' },
+   { nome: 'Jéssica', estrelas: 5, comentario: 'Super recomendo! Serviço excelente, prático e com um ótimo atendimento.' },
+   { nome: 'Leo', estrelas: 4, comentario: 'Muito top! Cumpre o que promete e tem um preço que vale a pena.' },
+   { nome: 'Ana Clara', estrelas: 5, comentario: 'Gostei muito! Tudo organizado, fácil de acessar e com suporte muito bom.' },
+   { nome: 'Tatiana', estrelas: 5, comentario: 'Excelente experiência! Recomendo para quem procura qualidade e praticidade.' },
+   { nome: 'Tainá', estrelas: 5, comentario: 'Muito satisfeita com o atendimento e o serviço. Com certeza recomendo!' }
+ ];
+ let indiceNome = 0;
+ let proximoLado = 'right';
+ let contadorTrocas = 0;
+ const elementoNomeEsquerdo = document.getElementById('reviewLeft');
+ const elementoNomeDireito = document.getElementById('reviewRight');
+ function mostrarComentario(lado, avaliacao) {
+   const destino = lado === 'left' ? elementoNomeEsquerdo : elementoNomeDireito;
+   const estrelas = '★'.repeat(avaliacao.estrelas) + '☆'.repeat(5 - avaliacao.estrelas);
+   destino.innerHTML = `<article class="client-review"><p class="client-review-stars text-xl" aria-label="${avaliacao.estrelas} de 5 estrelas">${estrelas}</p><p class="mt-3 text-sm leading-relaxed text-gray-100">“${avaliacao.comentario}”</p><p class="mt-4 text-base font-extrabold text-white">${avaliacao.nome}</p></article>`;
+ }
+ mostrarComentario('left', comentariosClientes[indiceNome++]);
+ function agendarProximoNome() {
+   const intervalos = [4000, 3000, 3000, 4000];
+   const intervalo = intervalos[contadorTrocas % intervalos.length];
+   contadorTrocas++;
+   window.setTimeout(function(){
+     mostrarComentario(proximoLado, comentariosClientes[indiceNome % comentariosClientes.length]);
+     indiceNome = (indiceNome + 1) % comentariosClientes.length;
+     proximoLado = proximoLado === 'left' ? 'right' : 'left';
+     agendarProximoNome();
+   }, intervalo);
+ }
+ agendarProximoNome();
+
+ const planos = {
+   1: { valor: 'R$ 9,00', link: 'https://mpago.la/2wtH8Z6' },
+   2: { valor: 'R$ 16,00', link: 'https://mpago.la/1pPsuGT' },
+   3: { valor: 'R$ 22,00', link: 'https://mpago.la/1ZGLTwj' },
+   4: { valor: 'R$ 28,00', link: 'https://mpago.la/2PQvkHR' }
+ };
+ let formaPagamentoSelecionada = '';
+
+ document.querySelectorAll('[data-payment]').forEach(function(botao){
+   botao.addEventListener('click', function(){
+     formaPagamentoSelecionada = this.dataset.payment;
+     document.querySelectorAll('[data-payment]').forEach(function(opcao){
+       opcao.setAttribute('aria-pressed', String(opcao === botao));
+     });
+     document.getElementById('paymentNotice').textContent = 'Forma escolhida: ' + this.querySelector('span').textContent + '. Clique em pagar; o Mercado Pago confirmará essa opção e as formas disponíveis no checkout.';
+   });
  });
 
-// PAGAMENTO MANUAL CONTROLADO
+ function atualizarPlano() {
+   const plano = planos[document.getElementById('plano').value];
+   document.getElementById('valorSelecionado').textContent = plano.valor;
+   document.getElementById('botaoPagar').textContent = `2. Pagar ${plano.valor} no Mercado Pago`;
+   atualizarLinksComprovante();
+ }
+
+ function atualizarLinksComprovante() {
+   const nome = document.getElementById('nome').value.trim() || 'Cliente';
+   const arquivo = document.getElementById('arquivo').value || 'a confirmar';
+   const numeroPlano = document.getElementById('plano').value;
+   const plano = planos[numeroPlano];
+   const labelPlano = document.querySelector(`#plano option[value="${numeroPlano}"]`).textContent;
+   const mensagem = `Ol%C3%A1%2C%20sou%20${encodeURIComponent(nome)}.%20Realizei%20o%20pagamento%20do%20Melo%20Internet%20SSH%20(${encodeURIComponent(labelPlano)}).%20Arquivo%3A%20${encodeURIComponent(arquivo)}.%20Estou%20enviando%20o%20comprovante%20para%20confer%C3%AAncia.%20Poderiam%20confirmar%20o%20recebimento%2C%20por%20gentileza%3F`;
+   document.getElementById('enviarComprovanteWhatsapp').href = `https://wa.me/5521959524869?text=${mensagem}`;
+   const assunto = encodeURIComponent('Comprovante de pagamento — Melo Internet SSH');
+   const corpo = encodeURIComponent(`Olá, sou ${nome}. Realizei o pagamento do plano ${labelPlano} (${plano.valor}). Arquivo: ${arquivo}. Estou enviando o comprovante para conferência. Poderiam confirmar o recebimento, por gentileza?`);
+   document.getElementById('enviarComprovanteEmail').href = `mailto:diegodemelotavares@gmail.com?subject=${assunto}&body=${corpo}`;
+ }
+
+ document.getElementById('plano').addEventListener('change', atualizarPlano);
+ document.getElementById('nome').addEventListener('input', atualizarLinksComprovante);
+ document.getElementById('arquivo').addEventListener('change', atualizarLinksComprovante);
+
+ document.querySelectorAll('[data-plan]').forEach(function(botao){
+   botao.addEventListener('click', function(){
+     document.getElementById('plano').value = this.dataset.plan;
+     atualizarPlano();
+     document.getElementById('contratar').scrollIntoView({ behavior: 'smooth' });
+   });
+ });
+
  document.getElementById('ehiForm').addEventListener('submit', function(e){
    e.preventDefault();
 
+   if (!formaPagamentoSelecionada) {
+     alert('Escolha Pix, cartão de débito ou cartão de crédito antes de continuar.');
+     return;
+   }
+
    const arquivo = document.getElementById('arquivo').value;
-   const nome = document.getElementById('nome').value;
-   const email = document.getElementById('email').value;
+   const nome = document.getElementById('nome').value.trim();
+   const email = document.getElementById('email').value.trim();
+   const numeroPlano = document.getElementById('plano').value;
 
    if(!arquivo || !nome || !email){
      alert("Preencha todos os campos");
      return;
    }
 
-   // Link fixo Mercado Pago com valor já configurado em R$15
-   const paymentLink = "https://mpago.la/2wtH8Z6";
-
-   // Salva dados temporariamente
    localStorage.setItem("cliente_nome", nome);
    localStorage.setItem("cliente_email", email);
    localStorage.setItem("cliente_arquivo", arquivo);
+   localStorage.setItem("cliente_plano", numeroPlano);
 
-   // Redireciona para pagamento
-   window.location.href = paymentLink;
+   window.location.href = planos[numeroPlano].link;
  });
 
-// Ao voltar do pagamento, abre email automático
- window.addEventListener("load", function(){
-   const nome = localStorage.getItem("cliente_nome");
-   const email = localStorage.getItem("cliente_email");
-   const arquivo = localStorage.getItem("cliente_arquivo");
-
-   if(window.location.search.includes("approved")){
-     document.body.insertAdjacentHTML("afterbegin", `
-       <div class="w-full bg-green-600 text-white text-center py-4 font-bold">
-         ✅ Pagamento aprovado! Agora envie o comprovante para finalizar.
-       </div>
-     `);
-   }
-
-   if(nome && email && arquivo && window.location.search.includes("approved")){
-
-     const subject = encodeURIComponent("Comprovante de Pagamento - Melo Prime");
-     const body = encodeURIComponent(
-       `Pagamento realizado!\n\nNome: ${nome}\nEmail: ${email}\nArquivo: ${arquivo}\nValor: R$15\n\nAnexe o comprovante do pagamento nesta mensagem.`
-     );
-
-     setTimeout(()=>{
-       window.location.href = `mailto:diegodemelotavares@gmail.com?subject=${subject}&body=${body}`;
-     },1500);
-
-     localStorage.clear();
-   }
+ const respostasFAQ = [
+   { categoria: 'valor', termos: ['preço','preco','valor','plano','planos','custa','acesso'], respostas: [
+     'Os planos são: 1 acesso por R$ 9,00; 2 por R$ 16,00; 3 por R$ 22,00; ou 4 por R$ 28,00. Todos valem por 30 dias. Selecione um cartão acima para conferir o valor no pedido.',
+     'Você pode escolher entre quatro opções de 30 dias: R$ 9,00 para 1 acesso, R$ 16,00 para 2, R$ 22,00 para 3 ou R$ 28,00 para 4 acessos.',
+     'Há planos de 1 a 4 acessos. Os valores são R$ 9,00, R$ 16,00, R$ 22,00 e R$ 28,00, respectivamente; a validade é de 30 dias.'
+   ] },
+   { categoria: 'gratuito', termos: ['grátis','gratis','gratuito','gratuita','horário','horario','hora'], respostas: [
+     'O acesso gratuito fica disponível todos os dias, das 10h às 18h. Fora desse período, você pode conferir os planos premium.',
+     'A opção gratuita funciona diariamente entre 10h e 18h. Se precisar de acesso em outro horário, veja os planos de 30 dias.',
+     'Você pode aproveitar o acesso gratuito das 10h às 18h todos os dias. Para as opções premium, selecione um dos planos acima.'
+   ] },
+   { categoria: 'pagamento', termos: ['pagar','pagamento','pix','cartão','cartao','crédito','credito','débito','debito','mercado pago','seguro'], respostas: [
+     'Depois de escolher o plano, você seguirá para o link correspondente do Mercado Pago. As formas disponíveis, como Pix e cartões, aparecem no checkout.',
+     'O valor é definido pelo plano escolhido e o pagamento é concluído no Mercado Pago. Confira lá as opções habilitadas para sua conta.',
+     'Escolha seu plano e use o botão de pagamento. O Mercado Pago apresenta as formas aceitas no checkout; depois, envie o comprovante para conferência.'
+   ] },
+   { categoria: 'grupo', termos: ['grupo','whatsapp','wpp','comunidade'], respostas: [
+     'O botão “Entrar no grupo de WhatsApp” abre o convite do grupo para você entrar e acompanhar as informações.',
+     'Você encontra o convite do grupo na seção de informações da página. Para atendimento individual, use o botão de WhatsApp no topo.',
+     'Para acessar o grupo, toque em “Entrar no grupo de WhatsApp”. Se preferir falar em particular, escolha WhatsApp no topo da página.'
+   ] },
+   { categoria: 'suporte', termos: ['suporte','atendente','ajuda','orçamento','orcamento','contato','falar'], respostas: [
+     'Para pedir um orçamento individual, use o botão WhatsApp no topo. Ele abre uma mensagem educada para você revisar e enviar.',
+     'O atendimento individual é pelo WhatsApp. Toque no botão verde para abrir a conversa e enviar sua solicitação.',
+     'Posso responder perguntas sobre as informações da página. Para confirmar detalhes do seu pedido, fale com o suporte pelo WhatsApp.'
+   ] }
+ ];
+ const respostaUsada = {};
+ document.getElementById('formAssistente').addEventListener('submit', function(e){
+   e.preventDefault();
+   const campo = document.getElementById('perguntaAssistente');
+   const texto = campo.value.trim();
+   const normalizado = texto.toLocaleLowerCase('pt-BR');
+   const item = respostasFAQ.find(grupo => grupo.termos.some(termo => normalizado.includes(termo)));
+   const resposta = item ? item.respostas[(respostaUsada[item.categoria] || 0) % item.respostas.length] : 'Não encontrei essa informação na base desta página. Para receber uma orientação específica, envie sua dúvida pelo WhatsApp de suporte.';
+   if (item) respostaUsada[item.categoria] = (respostaUsada[item.categoria] || 0) + 1;
+   const area = document.getElementById('respostasAssistente');
+   const pergunta = document.createElement('p'); pergunta.className = 'mt-3 text-white'; pergunta.textContent = `Você: ${texto}`;
+   const retorno = document.createElement('p'); retorno.className = 'mt-2 text-blue-200'; retorno.textContent = resposta;
+   area.append(pergunta, retorno); area.scrollTop = area.scrollHeight; campo.value = '';
  });
+ document.getElementById('abrirAssistente').addEventListener('click', function(){
+   const painel = document.getElementById('assistente');
+   painel.classList.remove('hidden');
+   document.getElementById('perguntaAssistente').focus();
+ });
+ document.getElementById('fecharAssistente').addEventListener('click', function(){ document.getElementById('assistente').classList.add('hidden'); });
 
+ const neve = document.getElementById('snowfall');
+ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+   for (let i = 0; i < 34; i++) {
+     const floco = document.createElement('span');
+     floco.className = 'snowflake';
+     floco.textContent = i % 3 === 0 ? '❅' : '❄';
+     floco.style.setProperty('--left', `${Math.random() * 100}%`);
+     floco.style.setProperty('--size', `${10 + Math.random() * 13}px`);
+     floco.style.setProperty('--opacity', `${0.16 + Math.random() * 0.2}`);
+     floco.style.setProperty('--duration', `${15 + Math.random() * 12}s`);
+     floco.style.setProperty('--delay', `${-Math.random() * 24}s`);
+     floco.style.setProperty('--drift', `${-60 + Math.random() * 120}px`);
+     neve.appendChild(floco);
+   }
+ }
+
+ atualizarLinksComprovante();
 </script>
 
 </body>
